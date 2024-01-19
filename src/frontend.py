@@ -3,7 +3,6 @@ from nicegui import ui
 
 import backend
 
-
 def init(fastapi_app: FastAPI) -> None:
     @ui.page('/', title="Various challenges")
     def show():

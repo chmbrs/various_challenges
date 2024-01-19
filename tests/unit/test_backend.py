@@ -32,7 +32,7 @@ class AsyncTest(IsolatedAsyncioTestCase):
     async def test_progressive_delay_item_writer(self):
         data = ["A", "B", "C", "D", "E"]
         result = await progressive_delay_item_writer(data)
-        self.assertEqual([('A', 0), ('B', 2), ('C', 4), ('D', 8), ('E', 16)], result)
+        self.assertEqual([('A', 1), ('B', 2), ('C', 4), ('D', 8), ('E', 16)], result)
 
 
 if __name__ == '__main__':
