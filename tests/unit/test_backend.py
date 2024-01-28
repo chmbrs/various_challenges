@@ -12,7 +12,7 @@ class TestBackend(unittest.TestCase):
         result = find_duplicated_items(data)
         self.assertEqual(result, [2, 4])
 
-    def test_find_duplicated_items(self):
+    def test_find_duplicated_items_2(self):
         data = ['a', 'b', 'c', 'd', 'c', 'a']
         result = find_duplicated_items(data)
         self.assertEqual(result, ['a', 'c'])

@@ -17,22 +17,13 @@ async def progressive_delay_item_writer(items):
     tasks = []
 
     item = next(items_iterator, None)
-    i = 1
+    aux_counter = 0
     while item is not None:
-        if i == 1:
-            task = asyncio.create_task(print_async(item, i, start))
-            tasks.append(task)
-            item = next(items_iterator, None)
-            i += 1
-            continue
-        
-        while i % 2 != 0:
-            i += 1
+        i = 2 ** aux_counter
         task = asyncio.create_task(print_async(item, i, start))
         tasks.append(task)
         item = next(items_iterator, None)
-
-        i *= 2
+        aux_counter += 1
 
     return await asyncio.gather(*tasks)
 
