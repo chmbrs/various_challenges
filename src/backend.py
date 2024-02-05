@@ -4,7 +4,15 @@ import time
 
 
 def find_duplicated_items(items):
-    return list(set([x for x in items if items.count(x) > 1]))
+    d = {}
+    for item in items:
+        d[item] = None
+
+    for item in items:
+        if d.get(item):
+            d[item] = True
+
+    return [k for k, v in d.items() if v]
 
 
 async def progressive_delay_item_writer(items):
@@ -34,18 +42,30 @@ def closed_brackets_checker(brackets_input):
         '(': ')',
         '[': ']'
     }
-    if brackets_input[0] not in brackets_pairs.keys() or len(brackets_input) % 2 != 0:
-        return False
 
-    for i, bracket in enumerate(brackets_input):
-        if i == len(brackets_input) / 2:
-            break
-        if brackets_pairs[bracket] == brackets_input[-i - 1]:
+    pilha = []
+    skipping_time = False
+    for item in brackets_input:
+
+        if item == '\'' and not skipping_time:
+            skipping_time = True
             continue
-        else:
-            return False
 
-    return True
+        if item == '\'' and skipping_time:
+            skipping_time = False
+            continue
+
+        if skipping_time:
+            continue
+
+        if item in brackets_pairs.keys():
+            pilha.append(item)
+        if item in brackets_pairs.values():
+            ultimo_da_pilha = pilha.pop()
+            if item == brackets_pairs[ultimo_da_pilha]:
+                continue
+            break
+    return len(pilha) == 0
 
 
 def achilles_and_turtle_print():

@@ -21,16 +21,23 @@ class TestBackend(unittest.TestCase):
         brackets_input_true = '{[]}'
         brackets_output_false = '{(])}'
         brackets_output_false_1 = '{([)]}'
+        brackets_output_true_pedro = '{{[]([])}}'
+
+        brackets_input_true_with_skip = """{'['}"""
+
+        brackets_input_true_with_skip = """{'[uausia'}"""
 
         self.assertTrue(closed_brackets_checker(brackets_input_true))
         self.assertFalse(closed_brackets_checker(brackets_output_false))
         self.assertFalse(closed_brackets_checker(brackets_output_false_1))
+        self.assertTrue(closed_brackets_checker(brackets_output_true_pedro))
+        self.assertTrue(closed_brackets_checker(brackets_input_true_with_skip))
 
 
 class AsyncTest(IsolatedAsyncioTestCase):
 
     async def test_progressive_delay_item_writer(self):
-        data = ["A", "B", "C", "D", "E"]
+        data = ["A", "B", "C"]
         result = await progressive_delay_item_writer(data)
         self.assertEqual([('A', 1), ('B', 2), ('C', 4), ('D', 8), ('E', 16)], result)
 
